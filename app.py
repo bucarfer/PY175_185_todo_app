@@ -1,6 +1,7 @@
 from werkzeug.exceptions import NotFound
 from uuid import uuid4
 from functools import wraps
+import os
 
 from flask import (
     flash,
@@ -158,7 +159,7 @@ def delete_todo(lst, todo, list_id, todo_id):
 def mark_all_todos_completed(lst, list_id):
     mark_all_completed(lst)
 
-    flash("All todos have been completed.", "sucess")
+    flash("All todos have been completed.", "success")
     session.modified = True
     return redirect(url_for('show_list', list_id=list_id))
 
@@ -195,4 +196,7 @@ def update_list(lst, list_id):
     return redirect(url_for('show_list', list_id=list_id))
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5003)
+    if os.environ.get('FLASK_ENV') == 'production' :
+        app.run(debug=False)
+    else:
+        app.run(debug=True, port=5003)
