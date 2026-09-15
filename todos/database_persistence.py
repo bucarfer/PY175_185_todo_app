@@ -1,3 +1,4 @@
+import os 
 from contextlib import contextmanager
 
 import logging 
@@ -14,7 +15,11 @@ class DatabasePersistence:
 
     @contextmanager
     def _database_connect(self):
-        connection = psycopg2.connect(dbname='todos')
+        if os.environ.get('FLASK_ENV') == 'production':
+            connection = psycopg2.connect(os.environ['DATABASE_URL'])
+        else:
+            connection = psycopg2.connect(dbname="todos")
+
         try:
             with connection:
                 yield connection
