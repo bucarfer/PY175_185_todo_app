@@ -12,24 +12,8 @@ def error_for_todo_title(todo_title):
 
     return None
 
-def find_list_by_id(list_id, lists):
-    return next((lst for lst in lists if lst['id'] == list_id), None)
-
 def find_todo_by_id(todo_id, todos):
     return next((todo for todo in todos if todo['id'] == todo_id), None)
-
-def delete_todo_by_id(todo_id, lst):
-    lst['todos'] = [todo for todo in lst['todos'] if todo['id'] != todo_id]
-
-def mark_all_completed(lst):
-    for todo in lst['todos']:
-        todo['completed'] = True
-
-def delete_list_by_id(list_id, lists):
-    for idx, lst in enumerate(lists):
-        if lst['id'] == list_id:
-            del lists[idx]
-            break
 
 def todos_remaining(lst):
     return sum(1 for todo in lst['todos'] if not todo['completed'])

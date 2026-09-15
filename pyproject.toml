@@ -10,6 +10,7 @@ python = "^3.8"
 flask = "^3.0.0"
 gunicorn = "^21.2.0"
 uuid = "^1.30"
+psycopg2-binary = "<2.9.13"
 
 
 [build-system]
